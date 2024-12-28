@@ -1,0 +1,97 @@
+﻿@page
+@model Reteteculinare.Pages.Recipes.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Recipe</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Recipe.RecipeName" class="control-label"></label>
+                <input asp-for="Recipe.RecipeName" class="form-control" />
+                <span asp-validation-for="Recipe.RecipeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.ChefName" class="control-label"></label>
+                <input asp-for="Recipe.ChefName" class="form-control" />
+                <span asp-validation-for="Recipe.ChefName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.Category" class="control-label">Category</label>
+                <input asp-for="Recipe.Category" class="form-control" placeholder="Enter category (e.g., Dessert)" />
+                <span asp-validation-for="Recipe.Category" class="text-danger"></span>
+            </div>
+
+
+            <h4>Ingredients</h4>
+            <div id="ingredients-list">
+                <!-- Ingredients will be dynamically added here -->
+            </div>
+            <button type="button" id="add-ingredient" class="btn btn-secondary">Add Ingredient</button>
+
+            <h4>Instructions</h4>
+            <div class="form-group">
+                <textarea asp-for="Recipe.Instructions" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+
+    <script>
+        document.getElementById("add-ingredient").addEventListener("click", function () {
+            const ingredientsList = document.getElementById("ingredients-list");
+
+            const ingredientRow = document.createElement("div");
+            ingredientRow.classList.add("form-group", "ingredient-row");
+
+            ingredientRow.innerHTML = `
+                        <div class="row mb-2">
+                            <div class="col-md-4">
+                                <input type="text" name="Recipe.Ingredients[${ingredientsList.children.length}].Name" class="form-control" placeholder="Ingredient Name" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" name="Recipe.Ingredients[${ingredientsList.children.length}].Quantity" class="form-control" placeholder="Quantity" />
+                            </div>
+                            <div class="col-md-3">
+                                <select name="Recipe.Ingredients[${ingredientsList.children.length}].Unit" class="form-control">
+                                    <option value="grams">Grams</option>
+                                    <option value="ml">Milliliters</option>
+                                    <option value="pieces">Pieces</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-danger remove-ingredient">Remove</button>
+                            </div>
+                        </div>
+                    `;
+
+            ingredientsList.appendChild(ingredientRow);
+
+            // Add event listener for the remove button
+            ingredientRow.querySelector(".remove-ingredient").addEventListener("click", function () {
+                ingredientRow.remove();
+            });
+        });
+    </script>
+}

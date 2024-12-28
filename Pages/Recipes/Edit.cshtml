@@ -1,0 +1,106 @@
+﻿@page
+@model Reteteculinare.Pages.Recipes.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Recipe</h1>
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Recipe.ID" />
+
+    <div class="form-group">
+        <label asp-for="Recipe.RecipeName" class="control-label"></label>
+        <input asp-for="Recipe.RecipeName" class="form-control" />
+        <span asp-validation-for="Recipe.RecipeName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Recipe.ChefName" class="control-label"></label>
+        <input asp-for="Recipe.ChefName" class="form-control" />
+        <span asp-validation-for="Recipe.ChefName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Recipe.Category" class="control-label"></label>
+        <input asp-for="Recipe.Category" class="form-control" />
+        <span asp-validation-for="Recipe.Category" class="text-danger"></span>
+    </div>
+
+    <h4>Ingredients</h4>
+    <div id="ingredients-list">
+        @foreach (var ingredient in Model.Recipe.Ingredients)
+        {
+            <div class="row mb-2 ingredient-row">
+                <div class="col-md-4">
+                    <input type="text" name="Recipe.Ingredients[@Model.Recipe.Ingredients.IndexOf(ingredient)].Name" 
+                           class="form-control" value="@ingredient.Name" placeholder="Ingredient Name" />
+                </div>
+                <div class="col-md-3">
+                    <input type="number" name="Recipe.Ingredients[@Model.Recipe.Ingredients.IndexOf(ingredient)].Quantity" 
+                           class="form-control" value="@ingredient.Quantity" placeholder="Quantity" />
+                </div>
+                <div class="col-md-3">
+                  <select name="Recipe.Ingredients[@Model.Recipe.Ingredients.IndexOf(ingredient)].Unit" class="form-control">
+    <option value="grams" @(ingredient.Unit != null && ingredient.Unit.Equals("grams") ? "selected" : "")>Grams</option>
+    <option value="ml" @(ingredient.Unit != null && ingredient.Unit.Equals("ml") ? "selected" : "")>Milliliters</option>
+    <option value="pieces" @(ingredient.Unit != null && ingredient.Unit.Equals("pieces") ? "selected" : "")>Pieces</option>
+</select>
+
+
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-danger remove-ingredient">Remove</button>
+                </div>
+            </div>
+        }
+    </div>
+    <button type="button" id="add-ingredient" class="btn btn-secondary">Add Ingredient</button>
+
+    <h4>Instructions</h4>
+    <div class="form-group">
+        <textarea asp-for="Recipe.Instructions" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.getElementById("add-ingredient").addEventListener("click", function () {
+            const ingredientsList = document.getElementById("ingredients-list");
+
+            const ingredientRow = document.createElement("div");
+            ingredientRow.classList.add("row", "mb-2", "ingredient-row");
+
+            ingredientRow.innerHTML = `
+                <div class="col-md-4">
+                    <input type="text" name="Recipe.Ingredients[${ingredientsList.children.length}].Name" class="form-control" placeholder="Ingredient Name" />
+                </div>
+                <div class="col-md-3">
+                    <input type="number" name="Recipe.Ingredients[${ingredientsList.children.length}].Quantity" class="form-control" placeholder="Quantity" />
+                </div>
+                <div class="col-md-3">
+                    <select name="Recipe.Ingredients[${ingredientsList.children.length}].Unit" class="form-control">
+                        <option value="grams">Grams</option>
+                        <option value="ml">Milliliters</option>
+                        <option value="pieces">Pieces</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-danger remove-ingredient">Remove</button>
+                </div>
+            `;
+
+            ingredientsList.appendChild(ingredientRow);
+
+            ingredientRow.querySelector(".remove-ingredient").addEventListener("click", function () {
+                ingredientRow.remove();
+            });
+        });
+    </script>
+}
