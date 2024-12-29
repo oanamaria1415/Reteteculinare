@@ -2,14 +2,13 @@
 @model Reteteculinare.Pages.Recipes.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Recipe";
 }
 
-<h1>Delete</h1>
+<h1>Delete Recipe</h1>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Recipe</h4>
+    <h4>Are you sure you want to delete this recipe?</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -31,10 +30,12 @@
             @Html.DisplayFor(model => model.Recipe.Category)
         </dd>
     </dl>
-    
+</div>
+
+<div>
     <form method="post">
         <input type="hidden" asp-for="Recipe.ID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
     </form>
 </div>

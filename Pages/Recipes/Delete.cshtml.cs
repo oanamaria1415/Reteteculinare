@@ -12,9 +12,9 @@ namespace Reteteculinare.Pages.Recipes
 {
     public class DeleteModel : PageModel
     {
-        private readonly Reteteculinare.Data.ReteteculinareContext _context;
+        private readonly ReteteculinareContext _context;
 
-        public DeleteModel(Reteteculinare.Data.ReteteculinareContext context)
+        public DeleteModel(ReteteculinareContext context)
         {
             _context = context;
         }
@@ -29,16 +29,16 @@ namespace Reteteculinare.Pages.Recipes
                 return NotFound();
             }
 
-            var recipe = await _context.Recipe.FirstOrDefaultAsync(m => m.ID == id);
+            // Include ingredientele în interogare
+            Recipe = await _context.Recipe
+                .Include(r => r.Ingredients)
+                .FirstOrDefaultAsync(m => m.ID == id);
 
-            if (recipe == null)
+            if (Recipe == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Recipe = recipe;
-            }
+
             return Page();
         }
 
@@ -49,11 +49,19 @@ namespace Reteteculinare.Pages.Recipes
                 return NotFound();
             }
 
-            var recipe = await _context.Recipe.FindAsync(id);
+            // Găsim rețeta inclusiv ingredientele
+            var recipe = await _context.Recipe
+                .Include(r => r.Ingredients)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
             if (recipe != null)
             {
-                Recipe = recipe;
-                _context.Recipe.Remove(Recipe);
+                // Ștergem întâi ingredientele asociate
+                _context.Ingredients.RemoveRange(recipe.Ingredients);
+
+                // Ștergem rețeta
+                _context.Recipe.Remove(recipe);
+
                 await _context.SaveChangesAsync();
             }
 

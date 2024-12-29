@@ -5,7 +5,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Recipe Details</h1>
 
 <div>
     <h4>Recipe</h4>
@@ -54,12 +54,13 @@
                         <td>@ingredient.Unit</td>
                     </tr>
                 }
+                @* Close tbody tag properly *@
             </tbody>
         </table>
     }
     else
     {
-        <p>No ingredients added for this recipe.</p>
+        <p>No ingredients available for this recipe.</p>
     }
 </div>
 
@@ -70,6 +71,6 @@
 </div>
 
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Recipe.ID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Edit" asp-route-id="@Model.Recipe.ID" class="btn btn-primary">Edit</a>
+    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
 </div>

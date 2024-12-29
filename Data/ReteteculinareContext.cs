@@ -16,5 +16,13 @@ namespace Reteteculinare.Data
 
         public DbSet<Reteteculinare.Models.Recipe> Recipe { get; set; } = default!;
         public DbSet<Ingredient> Ingredients { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Recipe>()
+                .HasMany(r => r.Ingredients)
+                .WithOne(i => i.Recipe)
+                .HasForeignKey(i => i.RecipeID);
+        }
     }
 }

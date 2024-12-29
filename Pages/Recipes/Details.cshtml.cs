@@ -12,9 +12,9 @@ namespace Reteteculinare.Pages.Recipes
 {
     public class DetailsModel : PageModel
     {
-        private readonly Reteteculinare.Data.ReteteculinareContext _context;
+        private readonly ReteteculinareContext _context;
 
-        public DetailsModel(Reteteculinare.Data.ReteteculinareContext context)
+        public DetailsModel(ReteteculinareContext context)
         {
             _context = context;
         }
@@ -27,20 +27,17 @@ namespace Reteteculinare.Pages.Recipes
             {
                 return NotFound();
             }
+
+            // Include ingredientele în interogare
             Recipe = await _context.Recipe
-           .Include(r => r.Ingredients) // Include ingredientele
-           .FirstOrDefaultAsync(m => m.ID == id);
+                .Include(r => r.Ingredients) // Include lista de ingrediente asociate
+                .FirstOrDefaultAsync(m => m.ID == id);
 
-
-            var recipe = await _context.Recipe.FirstOrDefaultAsync(m => m.ID == id);
-            if (recipe == null)
+            if (Recipe == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Recipe = recipe;
-            }
+
             return Page();
         }
     }
