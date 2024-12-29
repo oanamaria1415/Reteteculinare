@@ -30,5 +30,7 @@ namespace Reteteculinare.Models
         [Required(ErrorMessage = "Instructions are required.")]
         public string Instructions { get; set; }
 
+        public string ImagePath { get; set; } = "/images/default-recipe.jpg"; // Valoare implicită
+
     }
 }

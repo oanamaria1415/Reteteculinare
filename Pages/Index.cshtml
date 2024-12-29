@@ -1,10 +1,15 @@
 ﻿@page
 @model IndexModel
 @{
+    Layout = null; // Elimină complet layout-ul pentru această pagină
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div style="margin: 0; padding: 0; position: relative; height: 100vh; background-image: url('/images/wallpaper.jpg'); background-size: cover; background-position: center;">
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <div style="position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+        <h1 class="text-white display-4">Welcome to Culinary Recipes</h1>
+        <p class="text-white lead">Discover and create amazing recipes!</p>
+        <a asp-page="/Recipes/Index" class="btn btn-primary btn-lg mt-4">Explore Recipes</a>
+    </div>
 </div>

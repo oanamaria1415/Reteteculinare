@@ -5,49 +5,60 @@
     ViewData["Title"] = "Edit Recipe";
 }
 
-<h1>Edit Recipe</h1>
+<div class="container my-5">
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <h1 class="card-title text-center text-primary mb-4">Edit Recipe</h1>
 
-<form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="Recipe.ID" />
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Recipe.ID" />
 
-    <div class="form-group">
-        <label asp-for="Recipe.RecipeName" class="control-label"></label>
-        <input asp-for="Recipe.RecipeName" class="form-control" />
-        <span asp-validation-for="Recipe.RecipeName" class="text-danger"></span>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Recipe.RecipeName" class="control-label"></label>
+                            <input asp-for="Recipe.RecipeName" class="form-control" />
+                            <span asp-validation-for="Recipe.RecipeName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Recipe.ChefName" class="control-label"></label>
+                            <input asp-for="Recipe.ChefName" class="form-control" />
+                            <span asp-validation-for="Recipe.ChefName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Recipe.Category" class="control-label">Category</label>
+                            <input asp-for="Recipe.Category" class="form-control" placeholder="Enter category (e.g., Dessert)" />
+                            <span asp-validation-for="Recipe.Category" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <label for="Image" class="form-label">Current Image</label>
+                        <img src="@Model.Recipe.ImagePath" class="img-fluid rounded shadow mb-3" alt="Recipe Image" style="max-height: 200px; object-fit: cover;" />
+                        <div class="form-group">
+                            <label for="Image">Upload New Image</label>
+                            <input type="file" id="Image" name="Image" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <h4 class="text-success">Ingredients</h4>
+                    <textarea id="ingredientsText" name="IngredientsText" class="form-control" rows="5"
+                              placeholder="Enter ingredients in the format: Name, Quantity, Unit (e.g., Sugar, 200, grams)">@string.Join("\n", Model.Recipe.Ingredients.Select(i => $"{i.Name}, {i.Quantity}, {i.Unit}"))</textarea>
+                </div>
+
+                <div class="form-group mb-4">
+                    <h4 class="text-primary">Instructions</h4>
+                    <textarea asp-for="Recipe.Instructions" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" value="Save Changes" class="btn btn-success btn-lg me-2" />
+                    <a asp-page="./Index" class="btn btn-secondary btn-lg">Back to List</a>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Recipe.ChefName" class="control-label"></label>
-        <input asp-for="Recipe.ChefName" class="form-control" />
-        <span asp-validation-for="Recipe.ChefName" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Recipe.Category" class="control-label">Category</label>
-        <input asp-for="Recipe.Category" class="form-control" placeholder="Enter category (e.g., Dessert)" />
-        <span asp-validation-for="Recipe.Category" class="text-danger"></span>
-    </div>
-
-   <h4>Ingredients</h4>
-    <div class="form-group">
-        <label for="ingredientsText" class="control-label">Ingredients</label>
-        <textarea id="ingredientsText" name="IngredientsText" class="form-control" rows="5"
-                  placeholder="Enter ingredients in the format: Name, Quantity, Unit (e.g., Sugar, 200, grams)">@string.Join("\n", Model.Recipe.Ingredients.Select(i => $"{i.Name}, {i.Quantity}, {i.Unit}"))</textarea>
-    </div>
-
-
-
-    <h4>Instructions</h4>
-    <div class="form-group">
-        <textarea asp-for="Recipe.Instructions" class="form-control" rows="5"></textarea>
-        <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
-        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
-    </div>
-</form>
-
-
-
-
+</div>
