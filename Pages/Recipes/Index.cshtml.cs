@@ -12,9 +12,9 @@ namespace Reteteculinare.Pages.Recipes
 {
     public class IndexModel : PageModel
     {
-        private readonly Reteteculinare.Data.ReteteculinareContext _context;
+        private readonly ReteteculinareContext _context;
 
-        public IndexModel(Reteteculinare.Data.ReteteculinareContext context)
+        public IndexModel(ReteteculinareContext context)
         {
             _context = context;
         }
@@ -27,10 +27,10 @@ namespace Reteteculinare.Pages.Recipes
         public string SearchQuery { get; set; } = string.Empty;
 
         [BindProperty(SupportsGet = true)]
-        public string ChefFilter { get; set; } = string.Empty;
+        public string ChefFilter { get; set; } = "All Chefs";
 
         [BindProperty(SupportsGet = true)]
-        public string CategoryFilter { get; set; } = string.Empty;
+        public string CategoryFilter { get; set; } = "All Categories";
 
         public async Task OnGetAsync()
         {
@@ -48,22 +48,26 @@ namespace Reteteculinare.Pages.Recipes
             // Filtrare și căutare
             var query = _context.Recipe.AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(SearchQuery))
-            {
-                query = query.Where(r => r.RecipeName.Contains(SearchQuery));
-            }
-
-            if (!string.IsNullOrWhiteSpace(ChefFilter))
+            // Filtrare după bucătar
+            if (!string.IsNullOrWhiteSpace(ChefFilter) && ChefFilter != "All Chefs")
             {
                 query = query.Where(r => r.ChefName == ChefFilter);
             }
 
-            if (!string.IsNullOrWhiteSpace(CategoryFilter))
+            // Filtrare după categorie
+            if (!string.IsNullOrWhiteSpace(CategoryFilter) && CategoryFilter != "All Categories")
             {
                 query = query.Where(r => r.Category == CategoryFilter);
             }
 
+            // Bara de căutare (case-insensitive)
+            if (!string.IsNullOrWhiteSpace(SearchQuery))
+            {
+                query = query.Where(r => r.RecipeName.ToLower().Contains(SearchQuery.ToLower()));
+            }
+
             Recipe = await query.ToListAsync();
         }
+
     }
 }
