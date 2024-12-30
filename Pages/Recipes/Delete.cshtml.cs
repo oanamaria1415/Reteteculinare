@@ -42,30 +42,35 @@ namespace Reteteculinare.Pages.Recipes
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostDeleteAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            // Găsim rețeta inclusiv ingredientele
             var recipe = await _context.Recipe
-                .Include(r => r.Ingredients)
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .Include(r => r.Ingredients) // Dacă există relații
+                .FirstOrDefaultAsync(r => r.ID == id); // Găsește rețeta după ID
 
-            if (recipe != null)
+            if (recipe == null)
             {
-                // Ștergem întâi ingredientele asociate
-                _context.Ingredients.RemoveRange(recipe.Ingredients);
-
-                // Ștergem rețeta
-                _context.Recipe.Remove(recipe);
-
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
+            // Șterge doar rețeta găsită
+            _context.Recipe.Remove(recipe);
+
+            // Șterge ingredientele asociate (opțional)
+            if (recipe.Ingredients != null)
+            {
+                _context.Ingredients.RemoveRange(recipe.Ingredients);
+            }
+
+            await _context.SaveChangesAsync(); // Aplică modificările
+            TempData["Message"] = "Rețeta a fost ștearsă cu succes!";
             return RedirectToPage("./Index");
         }
+
     }
 }

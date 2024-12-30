@@ -10,35 +10,35 @@
 
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form method="post" enctype="multipart/form-data" class="shadow-lg p-4 rounded bg-light">
+            <form method="post" enctype="multipart/form-data" class="shadow-lg p-4 rounded" style="background: rgba(0, 0, 0, 0.8); color: white;">
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
                 <div class="mb-4">
-                    <label for="Image" class="form-label fw-bold">Upload Image</label>
+                    <label for="Image" class="form-label fw-bold text-light">Upload Image</label>
                     <input type="file" name="Image" id="Image" class="form-control">
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="Recipe.RecipeName" class="form-label fw-bold">Recipe Name</label>
+                    <label asp-for="Recipe.RecipeName" class="form-label fw-bold text-light">Recipe Name</label>
                     <input asp-for="Recipe.RecipeName" class="form-control" />
                     <span asp-validation-for="Recipe.RecipeName" class="text-danger"></span>
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="Recipe.ChefName" class="form-label fw-bold">Chef Name</label>
+                    <label asp-for="Recipe.ChefName" class="form-label fw-bold text-light">Chef Name</label>
                     <input asp-for="Recipe.ChefName" class="form-control" />
                     <span asp-validation-for="Recipe.ChefName" class="text-danger"></span>
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="Recipe.Category" class="form-label fw-bold">Category</label>
+                    <label asp-for="Recipe.Category" class="form-label fw-bold text-light">Category</label>
                     <input asp-for="Recipe.Category" class="form-control" placeholder="Enter category (e.g., Dessert)" />
                     <span asp-validation-for="Recipe.Category" class="text-danger"></span>
                 </div>
 
                 <div class="mb-4">
                     <h4 class="fw-bold text-secondary">Ingredients</h4>
-                    <label for="ingredientsText" class="form-label">Enter ingredients</label>
+                    <label for="ingredientsText" class="form-label text-light">Enter ingredients</label>
                     <textarea id="ingredientsText" name="IngredientsText" class="form-control" rows="5"
                               placeholder="Enter ingredients in the format: Name, Quantity, Unit (e.g., Sugar, 200, grams)"></textarea>
                 </div>

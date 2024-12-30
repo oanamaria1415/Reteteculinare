@@ -5,11 +5,48 @@
     ViewData["Title"] = "Home page";
 }
 
-<div style="margin: 0; padding: 0; position: relative; height: 100vh; background-image: url('/images/wallpaper.jpg'); background-size: cover; background-position: center;">
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);"></div>
-    <div style="position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
-        <h1 class="text-white display-4">Welcome to Culinary Recipes</h1>
-        <p class="text-white lead">Discover and create amazing recipes!</p>
-        <a asp-page="/Recipes/Index" class="btn btn-primary btn-lg mt-4">Explore Recipes</a>
+<div style="margin: 0; padding: 0; position: fixed; width: 100%; height: 100%; background-image: url('/images/wallpaper.jpg'); background-size: cover; background-position: center; overflow: hidden;">
+    <!-- Overlay pentru fundal -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6);"></div>
+
+    <!-- Conținutul principal -->
+    <div style="position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center;">
+        <h1 class="text-white display-3 fw-bold">Welcome to Culinary Recipes</h1>
+        <p class="text-white lead mb-4">Discover and create amazing recipes!</p>
+
+        <!-- Buton cu stil -->
+        <a asp-page="/Recipes/Index" class="btn btn-lg btn-explore shadow text-decoration-none">
+            Explore Recipes
+        </a>
     </div>
 </div>
+
+<!-- Stiluri personalizate pentru întreaga pagină -->
+<style>
+    body {
+        margin: 0;
+        overflow: hidden; /* Elimină scroll-ul */
+    }
+
+    .btn-explore {
+        background-color: #ff7f50; /* Culoarea butonului */
+        color: white; /* Culoarea textului */
+        padding: 15px 40px; /* Spațiere interioară */
+        font-size: 1.25rem; /* Mărimea textului */
+        border-radius: 30px; /* Colțuri rotunjite */
+        text-transform: uppercase; /* Text cu majuscule */
+        transition: all 0.3s ease-in-out; /* Animație smooth */
+        text-decoration: none; /* Elimină hyperlink-ul */
+    }
+
+        .btn-explore:hover {
+            background-color: #ff4500; /* Culoare la hover */
+            transform: scale(1.1); /* Mărește butonul la hover */
+            color: white; /* Menține culoarea textului */
+        }
+
+    .text-white {
+        color: white !important; /* Forțează textul să fie alb */
+    }
+
+</style>

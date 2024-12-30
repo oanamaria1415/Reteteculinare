@@ -6,7 +6,7 @@
 }
 
 <div class="container my-5">
-    <div class="card shadow-lg">
+    <div class="card shadow-lg" style="background: rgba(0, 0, 0, 0.8); color: white;">
         <img src="@Model.Recipe.ImagePath" class="card-img-top" alt="@Model.Recipe.RecipeName" style="height: 400px; object-fit: cover;">
         <div class="card-body">
             <h1 class="card-title text-center text-primary">@Model.Recipe.RecipeName</h1>
@@ -23,7 +23,7 @@
                         <ul class="list-group">
                             @foreach (var ingredient in Model.Recipe.Ingredients)
                             {
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgba(255, 255, 255, 0.1); color: white; border: none;">
                                     <span>
                                         <strong>@ingredient.Name</strong>
                                     </span>
@@ -46,9 +46,11 @@
                 <p class="text-justify">@Model.Recipe.Instructions</p>
             </div>
         </div>
-        <div class="card-footer text-center">
+        <div class="card-footer text-center" style="background: rgba(0, 0, 0, 0.9);">
             <a asp-page="./Edit" asp-route-id="@Model.Recipe.ID" class="btn btn-warning text-white me-2">Edit</a>
             <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+            <a asp-page="./Details" asp-route-id="@Model.Recipe.ID" asp-page-handler="DownloadPdf" class="btn btn-primary">Download PDF</a>
+
         </div>
     </div>
 </div>

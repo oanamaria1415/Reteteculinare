@@ -69,5 +69,31 @@ namespace Reteteculinare.Pages.Recipes
             Recipe = await query.ToListAsync();
         }
 
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        {
+            var recipe = await _context.Recipe
+                .Include(r => r.Ingredients)
+                .FirstOrDefaultAsync(r => r.ID == id);
+
+            if (recipe != null)
+            {
+                if (recipe.Ingredients != null)
+                {
+                    _context.Ingredients.RemoveRange(recipe.Ingredients);
+                }
+
+                _context.Recipe.Remove(recipe);
+                await _context.SaveChangesAsync();
+
+                TempData["Message"] = "Rețeta a fost ștearsă cu succes!";
+            }
+            else
+            {
+                TempData["Error"] = "Rețeta nu a fost găsită!";
+            }
+
+            return RedirectToPage();
+        }
     }
 }
+
