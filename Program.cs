@@ -1,20 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Reteteculinare.Data;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Adăugăm serviciile pentru Razor Pages și contextul bazei de date
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<ReteteculinareContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ReteteculinareContext") ?? throw new InvalidOperationException("Connection string 'ReteteculinareContext' not found.")));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ReteteculinareContext")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>() // Folosește ApplicationDbContext pentru Identity
+    .AddDefaultTokenProviders(); // Adaugă tokenuri pentru autentificare
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login"; // Ruta de login
+    options.AccessDeniedPath = "/Account/AccessDenied"; // Ruta pentru acces interzis
+});
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configurarea pipeline-ului HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

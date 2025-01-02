@@ -9,6 +9,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ using Reteteculinare.Models;
 
 namespace Reteteculinare.Pages.Recipes
 {
+    [AllowAnonymous]
     public class DetailsModel : PageModel
     {
         private readonly ReteteculinareContext _context;
