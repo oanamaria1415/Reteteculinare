@@ -4,13 +4,25 @@
 <h2>Login</h2>
 
 <form method="post">
+    <!-- Afișare erori de validare generale -->
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <!-- Câmp pentru Email -->
     <div class="form-group">
-        <label for="Email">Email</label>
-        <input type="email" name="Email" class="form-control" required />
+        <label asp-for="Input.Email" class="control-label"></label>
+        <input asp-for="Input.Email" class="form-control" />
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
     </div>
+
+    <!-- Câmp pentru Parolă -->
     <div class="form-group">
-        <label for="Password">Password</label>
-        <input type="password" name="Password" class="form-control" required />
+        <label asp-for="Input.Password" class="control-label"></label>
+        <input asp-for="Input.Password" type="password" class="form-control" />
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
     </div>
+
+    <!-- Buton de login -->
     <button type="submit" class="btn btn-primary">Login</button>
 </form>
+
+<p>Didn't sign up yet? <a href="/Account/Register">Try now</a></p>
