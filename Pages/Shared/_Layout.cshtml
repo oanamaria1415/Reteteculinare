@@ -94,6 +94,13 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="nav-link" asp-page="/Favorites/Favorites">Favorites</a>
+                            }
+                        </li>
+
                     </ul>
                     <ul class="navbar-nav">
                         @if (User.Identity.IsAuthenticated)

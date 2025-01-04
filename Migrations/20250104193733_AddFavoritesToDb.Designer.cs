@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Reteteculinare.Data;
 
@@ -10,9 +11,11 @@ using Reteteculinare.Data;
 namespace Reteteculinare.Migrations
 {
     [DbContext(typeof(ReteteculinareContext))]
-    partial class ReteteculinareContextModelSnapshot : ModelSnapshot
+    [Migration("20250104193733_AddFavoritesToDb")]
+    partial class AddFavoritesToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

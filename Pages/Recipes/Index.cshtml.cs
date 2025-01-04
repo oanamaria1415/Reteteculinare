@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Reteteculinare.Data;
 using Reteteculinare.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Reteteculinare.Pages.Recipes
 {
@@ -15,10 +16,12 @@ namespace Reteteculinare.Pages.Recipes
     public class IndexModel : PageModel
     {
         private readonly ReteteculinareContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public IndexModel(ReteteculinareContext context)
+        public IndexModel(ReteteculinareContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IList<Recipe> Recipe { get; set; } = new List<Recipe>();
@@ -96,6 +99,40 @@ namespace Reteteculinare.Pages.Recipes
 
             return RedirectToPage();
         }
+
+        public async Task<IActionResult> OnPostAddToFavoritesAsync(int id)
+        {
+            var userId = _userManager.GetUserId(User);
+
+            if (userId == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            // Verifică dacă rețeta este deja în favorite
+            var existingFavorite = await _context.Favorites
+                .FirstOrDefaultAsync(f => f.UserId == userId && f.RecipeId == id);
+
+            if (existingFavorite == null)
+            {
+                // Adaugă rețeta la favorite
+                var favorite = new Favorite
+                {
+                    UserId = userId,
+                    RecipeId = id
+                };
+
+                _context.Favorites.Add(favorite);
+                await _context.SaveChangesAsync();
+
+                TempData["Message"] = "Rețeta a fost adăugată la favorite!";
+            }
+            else
+            {
+                TempData["Error"] = "Rețeta este deja în lista de favorite!";
+            }
+
+            return RedirectToPage();
+        }
     }
 }
-
