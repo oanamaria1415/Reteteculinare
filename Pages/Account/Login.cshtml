@@ -1,28 +1,85 @@
 ﻿@page
 @model LoginModel
 
-<h2>Login</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0" style="border-radius: 15px; overflow: hidden; background-color: #333;">
+                <div class="card-body p-4">
+                    <h2 class="text-center text-light fw-bold mb-4">Login</h2>
 
-<form method="post">
-    <!-- Afișare erori de validare generale -->
-    <div asp-validation-summary="All" class="text-danger"></div>
+                    <!-- Form pentru login -->
+                    <form method="post">
+                        <!-- Afișare erori de validare generale -->
+                        <div asp-validation-summary="All" class="text-danger text-center mb-3"></div>
 
-    <!-- Câmp pentru Email -->
-    <div class="form-group">
-        <label asp-for="Input.Email" class="control-label"></label>
-        <input asp-for="Input.Email" class="form-control" />
-        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        <!-- Câmp pentru Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label text-light fw-bold">Email Address</label>
+                            <input asp-for="Input.Email" class="form-control custom-input" id="email" placeholder="Enter your email address" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Câmp pentru Parolă -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label text-light fw-bold">Password</label>
+                            <input asp-for="Input.Password" type="password" class="form-control custom-input" id="password" placeholder="Enter your password" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+
+                        <!-- Buton de login -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 10px;">Login</button>
+                        </div>
+                    </form>
+
+                    <p class="text-center mt-4 text-light">
+                        Didn't sign up yet?
+                        <a href="/Account/Register" class="text-decoration-none text-primary fw-bold">Register now</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <!-- Câmp pentru Parolă -->
-    <div class="form-group">
-        <label asp-for="Input.Password" class="control-label"></label>
-        <input asp-for="Input.Password" type="password" class="form-control" />
-        <span asp-validation-for="Input.Password" class="text-danger"></span>
-    </div>
 
-    <!-- Buton de login -->
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+<style>
+    body {
+        background-color: #121212; /* Fundal întunecat */
+    }
 
-<p>Didn't sign up yet? <a href="/Account/Register">Try now</a></p>
+    .card {
+        background-color: #333; /* Fundal gri pentru card */
+    }
+
+    .form-label {
+        color: #fff; /* Text alb pentru etichete */
+    }
+
+    .custom-input {
+        background-color: #000; /* Fundal negru */
+        color: #fff; /* Text alb */
+        border: 2px solid #fff; /* Chenar alb */
+        border-radius: 5px;
+    }
+
+        .custom-input::placeholder {
+            color: #aaa; /* Placeholder gri */
+        }
+
+        .custom-input:focus {
+            box-shadow: none; /* Elimină efectul implicit */
+            border-color: #007bff; /* Schimbă chenarul la albastru la focus */
+        }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+</style>

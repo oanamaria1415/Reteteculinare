@@ -1,27 +1,95 @@
 ﻿@page
 @model RegisterModel
 
-<h2>Register</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0" style="border-radius: 15px; overflow: hidden; background-color: #333;">
+                <div class="card-body p-4">
+                    <h2 class="text-center text-light fw-bold mb-4">Register</h2>
 
-<form method="post">
-    <div class="form-group">
-        <label asp-for="Input.Email"></label>
-        <input asp-for="Input.Email" class="form-control" />
-        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    <!-- Form pentru înregistrare -->
+                    <form method="post">
+                        <!-- Afișare erori generale -->
+                        <div asp-validation-summary="All" class="text-danger text-center mb-3"></div>
+
+                        <!-- Câmp pentru Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label text-light fw-bold">Email Address</label>
+                            <input asp-for="Input.Email" class="form-control custom-input" id="email" placeholder="Enter your email address" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Câmp pentru Parolă -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label text-light fw-bold">Password</label>
+                            <input asp-for="Input.Password" type="password" class="form-control custom-input" id="password" placeholder="Enter your password" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+
+                        <!-- Câmp pentru Confirmare Parolă -->
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label text-light fw-bold">Verify Password</label>
+                            <input asp-for="Input.ConfirmPassword" type="password" class="form-control custom-input" id="confirmPassword" placeholder="Confirm your password" />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <!-- Buton de înregistrare -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg" style="border-radius: 10px;">Register</button>
+                        </div>
+                    </form>
+
+                    <p class="text-center mt-4 text-light">
+                        Already have an account?
+                        <a href="/Account/Login" class="text-decoration-none text-success fw-bold">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Input.Password"></label>
-        <input asp-for="Input.Password" class="form-control" />
-        <span asp-validation-for="Input.Password" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Input.ConfirmPassword"></label>
-        <input asp-for="Input.ConfirmPassword" class="form-control" />
-        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<style>
+    body {
+        background-color: #121212; /* Fundal întunecat */
+    }
+
+    .card {
+        background-color: #333; /* Fundal gri pentru card */
+    }
+
+    .form-label {
+        color: #fff; /* Text alb pentru etichete */
+    }
+
+    .custom-input {
+        background-color: #000; /* Fundal negru */
+        color: #fff; /* Text alb */
+        border: 2px solid #fff; /* Chenar alb */
+        border-radius: 5px;
+    }
+
+        .custom-input::placeholder {
+            color: #aaa; /* Placeholder gri */
+        }
+
+        .custom-input:focus {
+            box-shadow: none; /* Elimină efectul implicit */
+            border-color: #28a745; /* Schimbă chenarul la verde la focus */
+        }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+</style>

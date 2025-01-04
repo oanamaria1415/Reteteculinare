@@ -15,12 +15,7 @@
         <p class="text-white lead mb-4">Discover and create amazing recipes!</p>
 
         <!-- Buton cu stil -->
-        <button class="btn btn-primary">
-            <a href="/Account/Login" style="color:white;">Explore Pages</a>
-        </button>
-
-
-
+        <a href="/Account/Login" class="btn-explore">Explore Pages</a>
     </div>
 </div>
 
@@ -32,18 +27,20 @@
     }
 
     .btn-explore {
-        background-color: #ff7f50; /* Culoarea butonului */
+        background-color: #007bff; /* Culoarea butonului */
         color: white; /* Culoarea textului */
         padding: 15px 40px; /* Spațiere interioară */
         font-size: 1.25rem; /* Mărimea textului */
         border-radius: 30px; /* Colțuri rotunjite */
         text-transform: uppercase; /* Text cu majuscule */
         transition: all 0.3s ease-in-out; /* Animație smooth */
-        text-decoration: none; /* Elimină hyperlink-ul */
+        text-decoration: none; /* Elimină sublinierea hyperlink-ului */
+        display: inline-block; /* Asigură că se comportă ca un buton */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adaugă umbră */
     }
 
         .btn-explore:hover {
-            background-color: #ff4500; /* Culoare la hover */
+            background-color: #0056b3; /* Culoare la hover */
             transform: scale(1.1); /* Mărește butonul la hover */
             color: white; /* Menține culoarea textului */
         }
@@ -51,5 +48,4 @@
     .text-white {
         color: white !important; /* Forțează textul să fie alb */
     }
-
 </style>

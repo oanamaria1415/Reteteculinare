@@ -7,9 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Adăugăm serviciile pentru Razor Pages și contexturile bazei de date
 builder.Services.AddRazorPages();
 
-// Înregistrăm ApplicationDbContext (pentru Identity)
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationDbContext")));
+
 
 // Înregistrăm ReteteculinareContext (pentru operațiuni specifice aplicației)
 builder.Services.AddDbContext<ReteteculinareContext>(options =>

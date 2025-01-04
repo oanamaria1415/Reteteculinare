@@ -32,5 +32,7 @@ namespace Reteteculinare.Models
 
         public string ImagePath { get; set; } = "/images/default-recipe.jpg"; // Valoare implicită
 
+        public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
+
     }
 }
